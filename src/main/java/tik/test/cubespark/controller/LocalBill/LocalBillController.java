@@ -1,5 +1,14 @@
 package tik.test.cubespark.controller.LocalBill;
-
+/*
+ * xxminhmie
+ * 
+ * 
+ * using HTTP methods for restful service
+ * POST -> create new
+ * GET -> read
+ * PUT -> update
+ * DELETE -> delete
+ */
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,7 +23,6 @@ import tik.test.cubespark.service.LocalBillService.ILocalBillService;
 
 @CrossOrigin
 @RestController
-
 public class LocalBillController {
 	
 	@Autowired
