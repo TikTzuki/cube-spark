@@ -1,7 +1,10 @@
 package tik.test.cubespark.service.LocalBillService;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import tik.test.cubespark.converter.LocalBillConverter.LocalBillConverter;
 import tik.test.cubespark.model.Customer.entity.CustomerEntity;
@@ -42,6 +45,12 @@ public class LocalBillService implements ILocalBillService{
 	@Override
 	public void delete(String[] ids) {
 		
+	}
+	@Override
+	public List<LocalBillEntity> findAll() {
+		List<LocalBillEntity> entity = (List<LocalBillEntity>) localBillRepository.findAll();
+
+		return entity;
 	}
 
 }
