@@ -1,0 +1,10 @@
+spring:
+  h2:
+    console:
+      enabled: true
+name: prod-YAML
+environment: production
+enabled: true
+server:
+    port: 5001 
+secret: secret
