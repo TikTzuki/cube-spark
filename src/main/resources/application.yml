@@ -7,5 +7,7 @@ environment: production
 enabled: true
 server:
   address: localhost
-identityServer: http://localhost:8080
+  port: 8080 
+resoucesServer: http://localhost:5001
+createUserPath: /api/createUser
 secret: secret

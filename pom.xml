@@ -9,12 +9,12 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>cube-spark</artifactId>
+	<artifactId>authorization-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>cube-spark</name>
-	<description>Demo project for Spring Boot</description>
+	<name>authorization-server</name>
+	<description>desinged by TikTzuki</description>
 	<properties>
-		<!-- <java.version>11</java.version> -->
+		<java.version>11</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -33,23 +33,9 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
 		    <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
-    </dependency>
-        <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-security</artifactId>
-    </dependency>
-        <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-test</artifactId>
-      <scope>test</scope>
     </dependency>
     <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
 <dependency>
@@ -62,6 +48,7 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+<!-- https://mvnrepository.com/artifact/junit/junit -->
 <dependency>
     <groupId>org.json</groupId>
     <artifactId>json</artifactId>
@@ -74,6 +61,14 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
