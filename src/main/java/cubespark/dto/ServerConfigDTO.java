@@ -17,7 +17,7 @@ public class ServerConfigDTO {
 	
 	public ServerConfigDTO(YAMLConfig config) {
 		this.identityUrl = config.getIdentityServer();
-		this.purchaseUrl = "http://"+config.getAddress()+":"+config.getPort();
+		this.purchaseUrl = "http://"+config.getAddress();
 	}
 	
 }

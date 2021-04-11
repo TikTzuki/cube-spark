@@ -7,6 +7,5 @@ environment: production
 enabled: true
 server:
   address: localhost
-  port: 5001 
 identityServer: http://localhost:8080
 secret: secret
