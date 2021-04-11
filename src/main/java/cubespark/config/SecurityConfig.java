@@ -22,7 +22,6 @@ import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import cubespark.filter.JwtFilter;
 import cubespark.service.CustomUserDetailsService;
 
 @Configuration
@@ -32,8 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Autowired
 	private CustomUserDetailsService customUserDetailsService;
 
-	@Autowired
-	private JwtFilter jwtFilter;
+//	@Autowired
+//	private JwtFilter jwtFilter;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -63,7 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.exceptionHandling()
 		.and().sessionManagement()
 		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+//		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 	
 //	@Bean
