@@ -8,22 +8,30 @@ import java.util.logging.Logger;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
+import cubespark.config.YAMLConfig;
 import cubespark.entity.CreateUserRequest;
 import cubespark.entity.User;
 import cubespark.repository.UserRepository;
 import cubespark.util.JwtUtil;
 
 @RestController
+@RequestMapping("api")
 public class UserController {
 	@Autowired
 	UserRepository repository;
@@ -31,8 +39,11 @@ public class UserController {
 	@Autowired
 	private JwtUtil jwtUtil;
 	
+	@Autowired
+	private YAMLConfig config;
+	
 	@PostMapping("/createUser")
-	public ResponseEntity<String> createAccount(@RequestBody CreateUserRequest request){
+	public ResponseEntity<String> createAccountFormAnotherServer(@RequestBody CreateUserRequest request){
 		if(validateCreateUserRequest(request)) {
 			User newUser = repository.save(new User(0, 
 					request.getUserName(), 
@@ -51,12 +62,26 @@ public class UserController {
 		return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 	}
 	
+	@PostMapping("/users")
+	public ResponseEntity<User> createAccount(@RequestBody CreateUserRequest request){
+		if(validateCreateUserRequest(request)) {
+			User newUser = repository.save(new User(0, 
+					request.getUserName(), 
+					request.getPassword(), 
+					request.getEmail(), 
+					request.getPhoneNumber(), 
+					request.getScope()));
+			return new ResponseEntity<User>(newUser, HttpStatus.ACCEPTED);
+		}
+		return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
+	}
+	
 	@GetMapping("/users")
 	public ResponseEntity<List<User>> getUsers(){
 		List<User> users = repository.findAll();
 		return new ResponseEntity<List<User>>(users, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/users/{id}")
 	public ResponseEntity<User> getUser(@PathVariable int id){
 		Optional<User> userOpt = repository.findById(id);
@@ -77,9 +102,9 @@ public class UserController {
 	}
 	
 	@DeleteMapping("/users/{id}")
-	public ResponseEntity<User> deleteUser(@PathVariable int id){
+	public ResponseEntity<List<User>> deleteUser(@PathVariable int id){
 		repository.deleteById(id);
-		return new ResponseEntity<User>(HttpStatus.OK);
+		return new ResponseEntity<List<User>>(repository.findAll(),HttpStatus.OK);
 	}
 	
 	private boolean validateCreateUserRequest(CreateUserRequest request) {

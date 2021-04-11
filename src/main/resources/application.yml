@@ -6,5 +6,7 @@ name: prod-YAML
 environment: production
 enabled: true
 server:
-    port: 5001 
+  address: localhost
+  port: 5001 
+identityServer: http://localhost:8080
 secret: secret

@@ -18,8 +18,11 @@ public class YAMLConfig {
 	private String name;
 	private String enviroment;
 	private boolean enabled;
+	@Value("${server.address}")
+	private String address;
 	@Value("${server.port}")
 	private String port;
+	private String identityServer;
 	private String secret;
 	
 	public String getBase64UrlSecret() {

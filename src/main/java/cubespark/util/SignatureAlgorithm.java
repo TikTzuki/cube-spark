@@ -20,7 +20,11 @@ public class SignatureAlgorithm {
 		
 		bytes = encryptHMACSHA256(header+"."+payload, appSecret);
 
-		return Base64.getUrlEncoder().encodeToString(bytes);
+		String rawBase64 = Base64.getUrlEncoder().encodeToString(bytes);
+		if(rawBase64.endsWith("=")) {
+			return rawBase64.substring(0, rawBase64.indexOf("="));
+		}
+		return rawBase64;
 	}
 
 	//secret not base64encode

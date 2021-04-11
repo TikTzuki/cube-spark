@@ -21,9 +21,9 @@ public class CubeSparkApplication {
 	@PostConstruct
 	public void initUsers() {
 		List<User> users = Stream.of(
-				new User(101, "tiktuzki", "password", "tranphanthanhlong18@gmail.com", "091234567","openid product order users"),
-				new User(102, "huong", "password", "huong@gmail.com", "0987654321", "openid product read:order"),
-				new User(103, "huyen", "password", "huyen@gmail.com", "0909090909", "openid read:product order")
+				new User(1, "tiktzuki", "P@ssword1", "tranphanthanhlong18@gmail.com", "091234567","openid read:user write:user"),
+				new User(2, "huong", "P@assword1", "huong@gmail.com", "0987654321", "openid read:user"),
+				new User(3, "huyen", "P@assword1", "huyen@gmail.com", "0909090909", "openid write:user")
 				).collect(Collectors.toList());
 		repository.saveAll(users);
 	}
