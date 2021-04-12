@@ -1,4 +1,4 @@
-package authorizationserver.util;
+package authorizationserver.service;
 
 import java.io.IOException;
 import java.util.Date;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import authorizationserver.config.YAMLConfig;
 import authorizationserver.repositories.UserRepository;
-import authorizationserver.service.SignatureAlgorithm;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 
