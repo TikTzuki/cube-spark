@@ -11,8 +11,13 @@ import lombok.Data;
 
 @Configuration
 @Data
+@EnableConfigurationProperties
+@ConfigurationProperties
 public class YAMLConfig {
-	private String secret = "secret";
+	@Value("${address}")
+	private String address;
+	private String secret;;
+	private String identityServer;
 	
 	public String getBase64UrlSecret() {
 		return Base64.getUrlEncoder()

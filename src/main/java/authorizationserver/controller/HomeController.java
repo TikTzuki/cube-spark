@@ -18,7 +18,7 @@ public class HomeController {
 	
 	@GetMapping("config")
 	public ResponseEntity<ServerConfigDTO> getInfo(){
-		return new ResponseEntity<ServerConfigDTO>(new ServerConfigDTO(), HttpStatus.OK);
+		return new ResponseEntity<ServerConfigDTO>(new ServerConfigDTO(config), HttpStatus.OK);
 	}
 	
 }
