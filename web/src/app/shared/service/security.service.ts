@@ -53,24 +53,23 @@ export class SecurityService {
     this._router.navigate(['/sign-in']);
   }
 
-  public Authorize(authorizedRequest: IAuthorizeRequest){
+  public Authorize(authorizedRequest: IAuthorizeRequest) {
     this.ResetAuthorizationData();
-    const url = this.identityUrl.endsWith('/') ? this.identityUrl : `${this.identityUrl}/connect/authenticate`;
-    console.log(authorizedRequest, url);
-    this._http.post(url, JSON.stringify(authorizedRequest), this.setHeaders()).pipe<IAuthorizeResponseSuccess>(
-      tap((res: any) => {
-        if (res.status >= 200 && res.status < 300) {
-          return res;
-        }
-        return false;
-      })
-    ).subscribe({
-      next: res => {
-        if(res){
+      const url = this.identityUrl.endsWith('/') ? this.identityUrl : `${this.identityUrl}/connect/authenticate`;
+      console.log(authorizedRequest, url);
+      this._http.post(url, JSON.stringify(authorizedRequest), this.setHeaders()).pipe<IAuthorizeResponseSuccess>(
+        tap((res: any) => {
+          if (res.status >= 200 && res.status < 300) {
+            return res;
+          }
+          return false;
+        })
+      ).subscribe({
+        next: res => {
           this.SetAuthorizationData(res.token, res.refreshToken);
-        }
-      }
-    });
+        },
+        error: (err) => window.alert("wrong username or password")
+      });
   }
 
   public Register(registingRequest: IRegistingRequest){
@@ -85,10 +84,9 @@ export class SecurityService {
       })
     ).subscribe({
       next: res=>{
-        if(res){
-          // this.SetAuthorizationData(res.token, res.refreshToken);
-        }
-      }
+          window.alert("success!!!");
+      },
+      error: err => window.alert("wrong input")
     })
   }
 

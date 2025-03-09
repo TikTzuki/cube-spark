@@ -53,6 +53,8 @@ export class UserService {
 
   deleteUser(id:number){
     const url = this.userUrl + '/' + id;
-    return this.service.delete(url);
+    return this.service.delete(url).pipe<IUser[]>(tap((res:any)=>{
+      return res;
+    }))
   }
 }

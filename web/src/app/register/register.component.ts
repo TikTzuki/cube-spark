@@ -1,6 +1,7 @@
 import { IAuthorizeRequest } from '../shared/models/authorizeRequest.model';
 import { SecurityService } from '../shared/service/security.service';
 import { IRegistingRequest } from '../shared/models/registingRequest.model';
+import { ConfigurationService } from '../shared/service/configuration.service';
 import { Validators } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -19,18 +20,22 @@ export class RegisterComponent implements OnInit {
   constructor(
     private router: Router,
     private sercurityService: SecurityService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private configurationService: ConfigurationService
   ) { }
 
   ngOnInit() {
     // this.getAccessToken(this.authRequest);
+    this.configurationService.settingLoaded$.subscribe(x=>{
     this.authForm = new FormGroup({
       username: new FormControl(null, [Validators.required, Validators.pattern('')]),
       password: new FormControl(null, [Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')]),
       confirmPassword: new FormControl(null, [Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')]),
       email: new FormControl(null ),
-      phoneNumber: new FormControl(null )
+      phoneNumber: new FormControl(null ),
+      scope: new FormControl('')
     });
+    })
   }
 
   // public getAccessToken(authRequest){
@@ -55,14 +60,27 @@ export class RegisterComponent implements OnInit {
         confirmPassword: this.confirmPassword.value,
         email: this.email.value,
         phoneNumber: this.phoneNumber.value,
-        scope: 'openid read:user write:user'
+        scope: this.scope.value
       };
       this.sercurityService.Register(this.authRequest);
     }
   }
+  isContraintScope(feature){
+    return this.scope.value.indexOf(feature) != -1 ? true : false;
+  }
 
   openModal(content){
     this.modalService.open(content);
+  }
+
+  handleCheckScope($event){
+    if($event.target.checked){
+      this.scope.setValue( (this.scope.value+' '+ $event.target.value+' ').trim() );
+    } else {
+      let str = this.scope.value;
+      this.scope.setValue(str.replace($event.target.value, '').trim());
+    }
+    console.log(this.authForm);
   }
 
   get username(): FormControl {
@@ -84,4 +102,8 @@ export class RegisterComponent implements OnInit {
   get phoneNumber(): FormControl{
     return this.authForm.get('phoneNumber') as FormControl;
   }
+
+  get scope():FormControl{
+    return this.authForm.get('scope') as FormControl;
+  } 
 }

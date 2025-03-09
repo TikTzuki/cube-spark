@@ -16,7 +16,7 @@ export class ConfigurationService {
   }
 
   load(){
-    const url = `http://localhost:5001/home/config`;
+    const url = `https://cube-spark.herokuapp.com/home/config`;
     this.http.get(url).subscribe((response) => {
       console.log('server setting loaded');
       this.serverSettings = response as IConfiguration;
